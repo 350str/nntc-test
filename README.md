@@ -15,5 +15,5 @@
 
 ### Setup
 
-  * установка зависимостей `$ npm install`
+  * установка зависимостей `$ npm install` или `$ yarn install`
   * запуск проекта `$ npm run start`
