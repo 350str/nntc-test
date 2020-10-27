@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useMemo } from 'react';
 import { useState } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
@@ -117,11 +117,18 @@ export const App:React.FC = () => {
     }
 
     // *** функция фильтрует закладки в зависимости от введенной в инпут информации
-    const visibleItems = () => {
-        if (searchItem === '') return markerList;
-        return selectValue === 'name' ? markerList.filter(marker => marker.name.toLowerCase().includes(searchItem.toLowerCase()))
-                                      : markerList.filter(marker => marker.tags.find(tag => tag.tagName.toLowerCase().includes(searchItem.toLowerCase())));
-    } 
+    const visibleItems = useMemo(() => {
+      if (searchItem === "") return markerList;
+      return selectValue === "name"
+        ? markerList.filter(marker =>
+            marker.name.toLowerCase().includes(searchItem.toLowerCase())
+          )
+        : markerList.filter(marker =>
+            marker.tags.find(tag =>
+              tag.tagName.toLowerCase().includes(searchItem.toLowerCase())
+            )
+          );
+    }, [searchItem, markerList, selectValue]); 
     
     const selectFieldHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectValue(e.target.value);
@@ -147,8 +154,8 @@ export const App:React.FC = () => {
                     <AddButton onClick={closeButtonHandler}>+</AddButton>
                 </Header>
                 <Content>
-                    {visibleItems() && visibleItems().length ? 
-                        visibleItems().map((marker, index) => {
+                    {visibleItems.length ? 
+                        visibleItems.map((marker, index) => {
                         return (              
                             <MarkerListItem 
                                 marker={marker} 

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 // *** images ***
@@ -45,18 +45,27 @@ interface TagListItemProps {
     findTagHandler?: (name: string) => void
 }
 
-export const TagListItem: React.FC<TagListItemProps> = ({ index, tag, deleteTagHandler, findTagHandler }) => {
-    const { tagName, color } = tag;
+export const TagListItem: React.FC<TagListItemProps> = ({
+  index,
+  tag,
+  deleteTagHandler,
+  findTagHandler,
+}) => {
+  const { tagName, color } = tag;
 
-    return (
-        <TagContainer key={index} onClick={findTagHandler && findTagHandler.bind(null, tagName)}>
-            <TagName>{tagName}</TagName>
-            <TagColor color={color}></TagColor>
-            {deleteTagHandler && 
-                <TagCloseIcon 
-                    src={closeImg} 
-                    onClick={deleteTagHandler.bind(null, index)} 
-                />}
-        </TagContainer>
-    )
-} 
+  return (
+    <TagContainer
+      key={index}
+      onClick={findTagHandler?.bind(null, tagName)}
+    >
+      <TagName>{tagName}</TagName>
+      <TagColor color={color}></TagColor>
+      {deleteTagHandler && (
+        <TagCloseIcon
+          src={closeImg}
+          onClick={deleteTagHandler.bind(null, index)}
+        />
+      )}
+    </TagContainer>
+  );
+}; 

@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -48,7 +47,7 @@ const PopupForm = styled.form`
     flex-direction: column;
     justify-content: space-around;
 `
-const PopupInput = styled.input`
+const Input = styled.input`
     width: 100%;
     height: 47px;
     border: 0;
@@ -59,10 +58,6 @@ const PopupInput = styled.input`
     padding: 5px 6px 13px;
     margin-bottom: 30px;
 `
-const TagInput = styled(PopupInput)`
-
-`
-const TagInputContainer = styled.div``
 const SubmitButton = styled.button`
   width: 100%;
   height: 50px;
@@ -97,8 +92,6 @@ const AddTagButton = styled.button`
     cursor: pointer;
 `
 
-
-
 interface PopupProps {
     isPopupOpen: boolean,
     closeButtonHandler: () => void
@@ -107,7 +100,10 @@ export interface MarkerProps {
     name: string,
     url: string,
     tag: string,
-    tags: { tagName: string, color: string }[],
+    tags: { 
+        tagName: string, 
+        color: string 
+    }[],
     date: number
 }
 export const Popup: React.FC<PopupProps> = ({ isPopupOpen, closeButtonHandler }) => {
@@ -166,11 +162,13 @@ export const Popup: React.FC<PopupProps> = ({ isPopupOpen, closeButtonHandler })
         const color = generateTagColor(fullMarkerList, marker);
 
         // *** проверяем что длина тега не 0 и что такого тега еще нет                                                                  
-        marker.tag.length > 0 && !marker.tags.find(tag => tag.tagName === marker.tag) && setMarker({
-            ...marker,
-            tags: [...marker.tags, { tagName: marker.tag, color }],
-            tag: ''
-        })
+        if (marker.tag.length > 0 && !marker.tags.find(tag => tag.tagName === marker.tag)) {
+            setMarker({
+                ...marker,
+                tags: [...marker.tags, { tagName: marker.tag, color }],
+                tag: ''
+            })
+        }
     }
 
     // *** удаляем тег из массива тегов
@@ -187,7 +185,7 @@ export const Popup: React.FC<PopupProps> = ({ isPopupOpen, closeButtonHandler })
             <PopupBackground>
                 <PopupContent>
                     <PopupForm onSubmit={submitFormHandler}>
-                        <PopupInput
+                        <Input
                             name="name"
                             value={marker.name}
                             type="text"
@@ -197,7 +195,7 @@ export const Popup: React.FC<PopupProps> = ({ isPopupOpen, closeButtonHandler })
                             maxLength={20} 
                             required
                         />
-                        <PopupInput
+                        <Input
                             name="url"
                             value={marker.url}
                             type="url"
@@ -206,8 +204,8 @@ export const Popup: React.FC<PopupProps> = ({ isPopupOpen, closeButtonHandler })
                             minLength={5}
                             required
                         />
-                        <TagInputContainer>
-                            <TagInput
+                        <div>
+                            <Input
                                 name="tag"
                                 value={marker.tag}
                                 type="text"
@@ -217,7 +215,7 @@ export const Popup: React.FC<PopupProps> = ({ isPopupOpen, closeButtonHandler })
                                 maxLength={20} 
                             />
                             <AddTagButton onClick={addTagHandler}>Add tag</AddTagButton>
-                        </TagInputContainer>
+                        </div>
                         <TagsContainer>
                             {marker.tags.map((tag, index) => {
                                 return (

@@ -5,11 +5,11 @@ export const generateTagColor = (markerList: MarkerProps[], currentMarker: Marke
     let green: number = Math.floor(Math.random() * 255);
     let blue: number = Math.floor(Math.random() * 255);
 
-    const sameTagMarker: MarkerProps | undefined = markerList.find(marker => marker.tags.find(tag => tag.tagName === currentMarker.tag));
+    const sameTagMarker = markerList.find(marker => marker.tags.find(tag => tag.tagName === currentMarker.tag));
     const sameTagColor = sameTagMarker?.tags.find(tag => tag.tagName === currentMarker.tag)?.color;
 
     const color = sameTagMarker ? sameTagColor!
                                 : `rgb(${red}, ${green}, ${blue})`;
 
-    return color
+    return color;
 }

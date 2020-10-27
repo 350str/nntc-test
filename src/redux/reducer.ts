@@ -6,9 +6,9 @@ import { ActionTypes, ActionsAll } from './actions';
 export interface StateProps {
     markerList: MarkerProps[],
     isPopupOpen: boolean,
-    activeMarkerIndex?: number | undefined
+    activeMarkerIndex: number | null
 }
-export const initialState: StateProps = { markerList: [], isPopupOpen: false };
+export const initialState: StateProps = { markerList: [], isPopupOpen: false, activeMarkerIndex: null };
 
 export const reducer: Reducer<StateProps, ActionsAll> = (state: StateProps = initialState, action: ActionsAll) => {
     switch (action.type) {
