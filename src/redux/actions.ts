@@ -26,7 +26,7 @@ export class EditMarker implements Action {
 
 export class TogglePopup implements Action {
     readonly type = ActionTypes.TOGGLE_POPUP;
-    constructor(public activeMarkerIndex: number | undefined = undefined){}
+    constructor(public activeMarkerIndex: number | null = null){}
 }
 
 export type ActionsAll = SetMarkerData | RemoveMarker | EditMarker | TogglePopup;

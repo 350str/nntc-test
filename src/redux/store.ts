@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, Middleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import { reducer, initialState } from './reducer'
+import { reducer, initialState } from './reducer';
 
 const persistedState = localStorage.getItem('markerList') ? JSON.parse(localStorage.getItem('markerList')!)
                                                           : initialState

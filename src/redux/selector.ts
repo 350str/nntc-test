@@ -9,6 +9,6 @@ export const selectIsPopupOpen = (state: StateProps): boolean => {
     return state.isPopupOpen
 }
 
-export const selectActiveMarkerIndex = (state: StateProps): number | undefined => {
-    return state.activeMarkerIndex
+export const selectActiveMarkerIndex = (state: StateProps): number | null => {
+    return state.activeMarkerIndex ?? null;
 }
